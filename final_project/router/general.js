@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const books = require('./booksdb.js');
+const axios = require('axios');
+
+// Get all books using async/await
+// Get books by ISBN using Promises
+// Get books by Author using async/await
+// Get books by Title using async/await
+
 
 
 // Sign in as Customer
