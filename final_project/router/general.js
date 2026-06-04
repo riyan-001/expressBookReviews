@@ -3,10 +3,78 @@ const router = express.Router();
 const books = require('./booksdb.js');
 const axios = require('axios');
 
-// Get all books using async/await
-// Get books by ISBN using Promises
-// Get books by Author using async/await
-// Get books by Title using async/await
+// Task 10 - Get all books using async callback function
+public_users.get('/async/books', async function(req, res) {
+try {
+const response = await axios.get('http://localhost:5000/');
+return res.status(200).json(response.data);
+} catch (error) {
+return res.status(500).json(error.message);
+}
+});
+
+// Task 11 - Search by ISBN using Promises
+public_users.get('/async/isbn/:isbn', function(req, res) {
+const isbn = req.params.isbn;
+
+axios.get('http://localhost:5000/')
+.then(response => {
+const books = response.data;
+return res.status(200).json(books[isbn]);
+})
+.catch(error => {
+return res.status(500).json(error.message);
+});
+});
+
+// Task 12 - Search by Author using Async/Await
+public_users.get('/async/author/:author', async function(req, res) {
+try {
+const author = req.params.author;
+const response = await axios.get('http://localhost:5000/');
+const books = response.data;
+
+```
+const result = Object.values(books).filter(
+  book => book.author.toLowerCase() === author.toLowerCase()
+);
+
+if(result.length === 0){
+  return res.status(404).json({message:"Author not found"});
+}
+
+return res.status(200).json(result);
+```
+
+} catch(error) {
+return res.status(500).json(error.message);
+}
+});
+
+// Task 13 - Search by Title using Async/Await
+public_users.get('/async/title/:title', async function(req, res) {
+try {
+const title = req.params.title;
+const response = await axios.get('http://localhost:5000/');
+const books = response.data;
+
+```
+const result = Object.values(books).filter(
+  book => book.title.toLowerCase() === title.toLowerCase()
+);
+
+if(result.length === 0){
+  return res.status(404).json({message:"Title not found"});
+}
+
+return res.status(200).json(result);
+```
+
+} catch(error) {
+return res.status(500).json(error.message);
+}
+});
+
 
 
 
